@@ -3,6 +3,10 @@ case $- in
       *) return;;
 esac
 
+if [ -f "$HOME/.nix-profile/share/blesh/ble.sh" ]; then
+    source "$HOME/.nix-profile/share/blesh/ble.sh"
+fi
+
 export PATH="$HOME/.local/bin:$PATH"
 
 HISTCONTROL=ignoreboth
