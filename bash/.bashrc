@@ -44,7 +44,6 @@ if command -v starship &> /dev/null; then
 fi
 
 eval "$(zoxide init bash)"
-eval "$(atuin init bash)"
 
 if [[ "$PWD" == "/mnt/c/Users/recregt" ]]; then
     cd ~
