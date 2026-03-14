@@ -26,5 +26,6 @@
     uv
     xh
     zoxide
+    nvd
   ];
 }
