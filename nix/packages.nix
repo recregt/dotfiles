@@ -3,7 +3,6 @@
   home.packages = with pkgs; [
     bat
     bottom
-    cowsay
     delta
     direnv
     dust
