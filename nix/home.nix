@@ -5,6 +5,7 @@
     ./bash.nix
     ./nushell.nix
     ./programs.nix
+    ./git.nix
   ];
 
   home.username = "recregt";
