@@ -15,6 +15,7 @@ alias loc = tokei
 alias http = xh
 alias help = tldr
 alias diff = delta
+alias hm = home-manager
 
 alias .. = cd ..
 alias ... = cd ../..
