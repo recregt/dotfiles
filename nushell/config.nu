@@ -25,29 +25,32 @@ alias ... = cd ../..
 alias .... = cd ../../..
 
 export def "nix list" [] {
-    ^nix profile list --json
-    | from json
-    | get elements
-    | transpose tool data
-    | insert version { |row|
-        $row.data.storePaths.0
-        | split row "-"
-        | where { |it| $it =~ '^[0-9]' }
-        | first
+    let wanted = [bat btm cowsay delta direnv dust eza fd ffmpeg gdb gh exiftool magick jq just micro mise nu pipx procs rg stow tldr tokei unzip uv xh zoxide]
+    
+    let hm_path = (^nix profile list --json
+        | from json
+        | get elements.home-manager-path.storePaths.0)
+    
+    ^ls -la $"($hm_path)/bin/"
+    | lines
+    | where { |it| $it =~ " -> " }
+    | each { |it|
+        let binary = ($it | split row " -> " | first | split row " " | last | str trim)
+        let store = ($it | split row " -> " | last | str trim)
+        let pkg = ($store | split row "/" | get 3 | split row "-")
+        let version = ($pkg | skip 1 | where { |p| $p =~ '^[0-9]' } | first | default "?")
+        {tool: $binary, version: $version}
     }
-    | select tool version
+    | where { |it| $it.tool in $wanted }
+    | sort-by tool
 }
 
 export def "nix install" [...pkgs: string] {
-    $pkgs | each { |pkg| ^nix profile add $"nixpkgs#($pkg)" }
+    print $"Add ($pkgs) to ~/dotfiles/nix/home.nix and run 'nix apply'"
 }
 
-export def "nix uninstall" [...pkgs: string] {
-    $pkgs | each { |pkg| ^nix profile remove $pkg }
-}
-
-export def "nix update" [] {
-    ^nix profile upgrade '.*'
+export def "nix apply" [] {
+    ^home-manager switch
 }
 
 $env.config = {
