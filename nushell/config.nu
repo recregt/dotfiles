@@ -1,7 +1,3 @@
-source ~/.cache/starship/init.nu
-source ~/.config/nushell/zoxide.nu
-source ~/.config/nushell/mise.nu
-
 alias ls = eza --icons --group-directories-first
 alias ll = eza -lah --icons --group-directories-first --git
 alias la = eza -a --icons --group-directories-first

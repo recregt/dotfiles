@@ -16,6 +16,12 @@
     enableNushellIntegration = true;
   };
 
+  programs.mise = {
+    enable = true;
+    enableNushellIntegration = true;
+    enableBashIntegration = true;
+  };
+
   home.file = {
     ".config/starship.toml".source = ../starship/starship.toml;
   };
