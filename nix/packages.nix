@@ -1,0 +1,31 @@
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    bat
+    bottom
+    cowsay
+    delta
+    direnv
+    dust
+    exiftool
+    eza
+    fd
+    ffmpeg
+    gdb
+    gh
+    imagemagick
+    jq
+    just
+    micro
+    mise
+    pipx
+    procs
+    ripgrep
+    tealdeer
+    tokei
+    unzip
+    uv
+    xh
+    zoxide
+  ];
+}
