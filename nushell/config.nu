@@ -48,7 +48,7 @@ export def "nix install" [...pkgs: string] {
 
 export def "nix apply" [] {
     let old = (^readlink -f ($env.HOME | path join ".local/state/nix/profiles/home-manager") | str trim)
-    ^home-manager switch
+    ^home-manager switch --flake $"($env.HOME)/dotfiles#recregt"
     ^nvd diff $old ($env.HOME | path join ".local/state/nix/profiles/home-manager")
 }
 
