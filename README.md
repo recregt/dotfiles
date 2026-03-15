@@ -24,49 +24,58 @@ My personal dotfiles for WSL2 (Ubuntu) managed with [Home Manager](https://githu
 | [just](https://github.com/casey/just) | command runner |
 | [xh](https://github.com/ducaale/xh) | HTTP client |
 | [uv](https://github.com/astral-sh/uv) | Python package manager |
+| [micro](https://micro-editor.github.io/) | terminal text editor |
 
 ## Structure
+
 ```
 dotfiles/
+├── flake.nix          # nix flake entry point
+├── flake.lock         # pinned dependency versions
 ├── nix/
 │   ├── home.nix       # main entry point
 │   ├── packages.nix   # installed packages
 │   ├── bash.nix       # bash config
 │   ├── nushell.nix    # nushell config
-│   ├── programs.nix   # starship, zoxide, direnv, mise
+│   ├── programs.nix   # starship, zoxide, direnv, mise, gh, micro
 │   └── git.nix        # git config
 ├── nushell/
 │   ├── config.nu      # nushell config
 │   └── env.nu         # nushell env
 └── starship/
-    └── starship.toml  # starship prompt config
+    └── starship.toml  # starship prompt config (read by nix via fromTOML)
 ```
 
 ## Bootstrap
 
 ### 1. Install Nix
+
 ```bash
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
 ```
 
-### 2. Install Home Manager
+### 2. Enable Flakes
+
 ```bash
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-nix-shell '<home-manager>' -A install
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
 ### 3. Clone dotfiles
+
 ```bash
 git clone https://github.com/recregt/dotfiles ~/dotfiles
 ```
 
 ### 4. Apply
+
 ```bash
-~/.nix-profile/bin/home-manager switch -f ~/dotfiles/nix/home.nix
+cd ~/dotfiles
+nix run home-manager/master -- switch --flake .#recregt
 ```
 
 ### 5. Set Nushell as default shell
+
 ```bash
 which nu | sudo tee -a /etc/shells
 chsh -s $(which nu)
@@ -77,6 +86,7 @@ chsh -s $(which nu)
 | Command | Description |
 |---------|-------------|
 | `nix apply` | apply home-manager changes |
+| `nix flake update` | update pinned dependencies |
 | `hm generations` | list all generations |
 | `hm switch --rollback` | roll back to previous generation |
 | `nix list` | list installed packages with versions |

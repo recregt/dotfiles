@@ -37,7 +37,6 @@
   programs.micro = {
     enable = true;
     settings = {
-      colorscheme = "catppuccin-mocha";
       tabsize = 2;
       tabstospaces = true;
       autosu = true;
