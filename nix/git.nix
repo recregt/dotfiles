@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   programs.git = {
     enable = true;
@@ -17,11 +17,11 @@
       color.ui = "auto";
       credential."https://github.com".helper = [
         ""
-        "!/home/recregt/.nix-profile/bin/gh auth git-credential"
+        "!${pkgs.gh}/bin/gh auth git-credential"
       ];
       credential."https://gist.github.com".helper = [
         ""
-        "!/home/recregt/.nix-profile/bin/gh auth git-credential"
+        "!${pkgs.gh}/bin/gh auth git-credential"
       ];
     };
   };
