@@ -11,11 +11,9 @@
     fd
     ffmpeg
     gdb
-    gh
     imagemagick
     jq
     just
-    micro
     mise
     pipx
     procs
