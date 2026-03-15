@@ -3,6 +3,8 @@
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
+    enableNushellIntegration = true;
+    settings = builtins.fromTOML (builtins.readFile ../starship/starship.toml);
   };
 
   programs.direnv = {
@@ -22,7 +24,4 @@
     enableBashIntegration = true;
   };
 
-  home.file = {
-    ".config/starship.toml".source = ../starship/starship.toml;
-  };
 }
