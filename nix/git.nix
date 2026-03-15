@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs.git = {
     enable = true;
@@ -7,7 +7,7 @@
       user.email = "203110092+recregt@users.noreply.github.com";
       init.defaultBranch = "main";
       core = {
-        editor = "micro";
+        editor = config.home.sessionVariables.EDITOR;
         autocrlf = "input";
       };
       pull.rebase = true;
