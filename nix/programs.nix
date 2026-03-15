@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   programs.starship = {
     enable = true;
@@ -29,7 +29,7 @@
     enable = true;
     settings = {
       git_protocol = "https";
-      editor = "micro";
+      editor = config.home.sessionVariables.EDITOR;
       prompt = "enabled";
     };
   };
